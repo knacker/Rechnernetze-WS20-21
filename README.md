@@ -1,2 +1,2 @@
 # Rechnernetze-WS20-21
-cool
+Repository für Übung sowie Praktikum von Rechnernetze im Wintersemester 2020/2021.
