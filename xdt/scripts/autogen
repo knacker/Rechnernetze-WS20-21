@@ -1,0 +1,15 @@
+#! /bin/sh
+
+if test ! -d src
+then
+  echo "$0: Error: You have to call me from the project root directory."
+  exit 1
+fi
+
+# calling automake twice fixes a bug in automake 1.5, not to include 'depcomp' into distribution
+aclocal \
+&& autoheader \
+&& automake --foreign --add-missing --copy \
+&& automake --foreign --add-missing --copy \
+&& autoconf
+

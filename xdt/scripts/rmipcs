@@ -1,0 +1,34 @@
+#!/bin/sh
+
+###
+
+rmipcs() {
+  for i in `ipcs | grep $USER | cut -d " " -f$C`
+  do
+
+    # SUS compliant syntax
+    # SYNOPSIS ipcrm  [-m shmid]  [-q msqid]  [-s semid]   [-M shmkey]   [-Q msgkey] [-S semkey]
+    ipcrm -m $i || \
+    ipcrm -q $i || \
+    ipcrm -s $i || \
+    # deprecated Linux syntax
+    # SYNOPSIS ipcrm [ shm | msg | sem ] id...
+    ipcrm shm $i || \
+    ipcrm msg $i || \
+    ipcrm sem $i
+
+  done
+}
+
+###
+
+echo Removing left IPC resources...
+
+# suppress error messages
+exec >/dev/null 2>&1
+
+# try with different spaces between columns of ipcs output
+for C in 2 3 4 5 6 7 8 9 10 11; do
+  rmipcs
+done
+

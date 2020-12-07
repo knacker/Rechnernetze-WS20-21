@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# unifies the appearance of the whole source
+
+if test "$#" != 0
+then
+  echo "usage: $0"
+  exit 1
+fi
+
+if test ! -d src
+then
+  echo "$0: Error: You have to call me from the project root directory."
+  exit 2
+fi
+
+OPTIONS="-pmt"	# preserve modification time
+STYLE="-gnu -l999 -lps -hnl -sbi0 -saf -sai -saw -nut -nprs -npcs -nfca -ncs -lp -nbbo -cli0 -ce -cdw -cbi2 -bad -bap -br -bls -bli2 -bs -nbbb"	# see indent(1)
+
+indent $OPTIONS </dev/null >/dev/null 2>&1
+if test $? != 0
+then
+  echo "$0: Warning: The modification time cannot be preserved."
+  OPTIONS=""
+fi
+
+echo "Beautifying source..."
+find src -name "*.[ch]" -print | xargs indent $OPTIONS $STYLE
+

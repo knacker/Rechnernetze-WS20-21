@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# prints all lines of the source (with linenumbers) matching a pattern
+
+if test "$#" -lt 1
+then
+  echo "usage: $0 [grep options] pattern"
+  exit 1
+fi
+
+if test ! -d src
+then
+  echo "$0: Error: You have to call me from the project root directory."
+  exit 2
+fi
+
+find src -name "*.[ch]" -print | xargs grep -n "$@"

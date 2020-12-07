@@ -1,0 +1,64 @@
+#!/bin/sh
+
+if test "$#" != 1
+then
+  echo "usage: $0 flavour"
+  exit 1
+fi
+
+if test ! -d src
+then
+  echo "$0: Error: You have to call me from the project root directory."
+  exit 2
+fi
+
+
+flavour=$1
+FLAVOUR=`echo $flavour | tr '[:lower:]' '[:upper:]'`
+SPECIAL=_NOTFOR_
+BEGIN=BEGIN$SPECIAL$FLAVOUR
+END=END$SPECIAL$FLAVOUR
+DIR=flavour-$flavour
+DATE=`date "+%Y%m%d"`
+NONSTATIC_DOC=xdt_${flavour}_doc_nonstatic-$DATE
+STATIC_DOC=xdt_${flavour}_doc_static-$DATE
+
+trap exit 2 15
+
+echo Making temporary files...
+mkdir $DIR || exit 1
+tar cf - --exclude $DIR . | ( cd $DIR ; tar xfp - )
+echo $flavour > $DIR/FLAVOUR
+
+for i in `find . -name "*.[ch]" -print`; do
+  if test -f "$DIR/$i"; then
+    echo edit "$DIR/$i"...
+
+    awk "del=0
+         /$BEGIN/,/$END/ {del=1}
+	 /$SPECIAL/ {del=1}
+         del==0 {print}" $i > $DIR/$i
+
+  fi
+done
+
+
+echo Making $flavour distribution...
+cd $DIR
+./scripts/autogen && ./configure && make dist
+cd -
+
+echo Making docs...
+cd $DIR/doc
+make dox
+mv html $NONSTATIC_DOC && tar cvf - $NONSTATIC_DOC | gzip -c > $NONSTATIC_DOC.tar.gz && rm -rf $NONSTATIC_DOC
+mv html-static $STATIC_DOC && tar cvf - $STATIC_DOC | gzip -c > $STATIC_DOC.tar.gz && rm -rf $STATIC_DOC
+make clean
+cd -
+
+echo Copy tarballs... 
+cp -i $DIR/*${flavour}*.tar.gz .
+cp -i $DIR/doc/*${flavour}*.tar.gz .
+
+echo Removing temporary files...
+rm -rf $DIR

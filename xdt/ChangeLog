@@ -1,0 +1,77 @@
+================================================================================
+ChangeLog
+================================================================================
+
+2005-12-12: ao
+
+	* desc.tex: Beschreibung zur Signalbehandlung geaendert
+	  - ist jetzt Pflicht
+
+	* src/service/service.c, src/service/service.h, src/service/main.c:
+	  - Beschreibung von get_message() korrigiert
+
+2005-11-29: ao
+
+	* desc.tex: Hinweise auf moegliche Probleme eingefuegt (Abschnitt 4.4)
+	  - Probleme mit Shell-Einstellungen
+	  - Loeschen von Message Queues
+
+2005-11-18: ao
+
+	* desc.tex: Copy-Paste-Fehler beseitigt
+	  - befand sich im Beispiel zum Starten der Prozesse
+
+2005-11-17: ao
+
+	* desc.tex grundlegend überarbeitet
+	  - Inhaltsverzeichnis eingefügt
+	  - roten Faden geschaffen
+	  - ueberfluessige Erklaerungen entfernt
+	  - zusaetzliche und vor allem klarere Hinweise zur Installation, 
+            Ausfuehrung und Implementierung
+
+2005-11-10: ao
+
+	* desc.tex ueberarbeitet
+	  - Anhang mit Erklaerung zum Casten der Nachrichten aus der 
+	    Message-Queue zur Versuchsbeschreibung hinzugefuegt
+
+2005-10-25: ao
+
+	* desc.tex unterscheidet jetzt nicht mehr zwischen IMT und Informatik	
+	  - Informatik-Teil einfach entfernt
+	  - Angaben zum Zeitbedarf leicht geändert
+	* die alte Versuchsbeschreibung befindet sich jetzt in desc.tex.old
+
+2004-05-26: dar
+
+	* src/service/errors.h: corrected simulation goal description of error
+	  case ERR_DAT2
+	* doc/desc.tex: several typos corrected
+
+2004-05-19: dar
+
+	* regarding to the bugs found by mkrause and smank:
+	  - service/queue.c: fixed wrong return value of xdt_queue_create()
+	  - user/consumer.c: fixed wrong SDU access in consumer_data_transfer()
+
+2004-04-08: ao
+
+	* doc/desc.tex: changes corresponding to annotations of tweimann
+
+2004-04-06: dar
+
+	* src/xdt/address.c: xdt_parse_address() frees precompiled pattern
+	  buffer by calling regfree() at the end
+
+2004-03-26: dar
+
+	* scripts/make-flavour: changed directory traversion mechanism
+	* doc/desc.tex: removed unused package 'float'
+
+2004-03-25: dar
+
+	* added INTERNALS (only in CVS), documenting the internals (structure,
+          how to setup and build several variations of distribution archives)
+	* added this ChangeLog file
+

@@ -1,0 +1,25 @@
+Configuring the package
+-----------------------
+
+  $ ./configure
+
+Translating the sources
+-----------------------
+
+  $ make
+
+-> src/examples: example code
+-> src/service: XDT layer
+-> src/user: user layer
+-> src/xdt: common code
+
+
+Making HTML source documentation
+--------------------------------
+requires: doxygen
+
+  $ make dox
+
+-> doc/html: public interface
+-> doc/html-static: everything
+
