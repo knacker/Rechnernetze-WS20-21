@@ -52,6 +52,7 @@ typedef struct
   unsigned sequ; /**< sequence number */
 } XDT_ack;
 
+
 /** @brief ABO PDU */
 typedef struct
 {

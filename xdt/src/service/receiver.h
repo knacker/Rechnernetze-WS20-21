@@ -7,12 +7,6 @@
 #ifndef RECEIVER_H
 #define RECEIVER_H
 
-/**
- * @addtogroup service
- * @{
- */
-
-
 void start_receiver(unsigned connection);
 
 
